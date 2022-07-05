@@ -61,10 +61,14 @@ function unFlipCard(card) {
 
 /** Handle clicking on a card: this could be first-card or second-card. */
 let cardArr = [];
-let matchCount = 0
-let done = false
-let maxCount = colors.length/2
+let matchCount = 0;
+let done = false;
+let maxCount = colors.length / 2;
 function handleCardClick(evt) {
+  if(evt.srcElement.dataset.cardMatched){
+    //do nothing when already matched 
+    return
+  }
   flipCard(evt.srcElement);
   cardArr.push(evt.srcElement);
 
@@ -77,20 +81,23 @@ function handleCardClick(evt) {
         unFlipCard(cardArr[0]);
         unFlipCard(cardArr[1]);
       } else {
-        matchCount++
-        if(matchCount === maxCount){
-          done = true;
-          document.querySelector("h1").innerText = "game over"
-        }
+        markMatch(cardArr[0])
+        markMatch(cardArr[1])
+        checkGame();
+
       }
       cardArr = [];
     }, 1000);
-
-
-
   }
 
+}
 
+function checkGame() {
+  matchCount++;
+  if (matchCount === maxCount) {
+    done = true;
+    document.querySelector("h1").innerText = "game over";
+  }
 }
 
 function createCard(color, id) {
@@ -101,4 +108,8 @@ function createCard(color, id) {
 
   newCard.addEventListener("click", handleCardClick);
   return newCard;
+}
+
+function markMatch(card) {
+  card.setAttribute("data-card-matched", true);
 }
