@@ -50,29 +50,55 @@ function createCards(colors) {
 /** Flip a card face-up. */
 
 function flipCard(card) {
- card.style.backgroundColor = "red";
+  card.style.backgroundColor = card.dataset.cardValue;
 }
 
 /** Flip a card face-down. */
 
 function unFlipCard(card) {
-  card.style.backgroundColor = "black";
+  card.style.backgroundColor = "white";
 }
 
 /** Handle clicking on a card: this could be first-card or second-card. */
-
+let cardArr = [];
+let matchCount = 0
+let done = false
+let maxCount = colors.length/2
 function handleCardClick(evt) {
-  flipCard(evt.srcElement)
-  console.log(evt)
-  // ... you need to write this ...
+  flipCard(evt.srcElement);
+  cardArr.push(evt.srcElement);
+
+  if (cardArr.length === 2) {
+    let isMatch = cardArr[0].dataset.cardValue === cardArr[1].dataset.cardValue;
+
+
+    setTimeout(function () {
+      if (!isMatch) {
+        unFlipCard(cardArr[0]);
+        unFlipCard(cardArr[1]);
+      } else {
+        matchCount++
+        if(matchCount === maxCount){
+          done = true;
+          document.querySelector("h1").innerText = "game over"
+        }
+      }
+      cardArr = [];
+    }, 1000);
+
+
+
+  }
+
+
 }
 
-function createCard(color, id){
+function createCard(color, id) {
   const newCard = document.createElement("div");
   newCard.id = id;
   newCard.className = "card";
   newCard.setAttribute("data-card-value", color);
-  newCard.addEventListener("click", handleCardClick);
 
+  newCard.addEventListener("click", handleCardClick);
   return newCard;
 }
