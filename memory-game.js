@@ -63,16 +63,27 @@ function unFlipCard(card) {
 let cardArr = [];
 let matchCount = 0;
 let done = false;
+let isBlocked = false;
 let maxCount = colors.length / 2;
 function handleCardClick(evt) {
-  if(evt.srcElement.dataset.cardMatched){
-    //do nothing when already matched 
+  if(evt.srcElement.dataset.cardMatched || isBlocked || done){
+    //do nothing when already matched
     return
   }
   flipCard(evt.srcElement);
-  cardArr.push(evt.srcElement);
+   let exists = cardArr.some(function(card){
+    return card.id === evt.srcElement.id
+  })
+
+  if(!exists){
+    cardArr.push(evt.srcElement);
+  }
+
+
+
 
   if (cardArr.length === 2) {
+    isBlocked = true
     let isMatch = cardArr[0].dataset.cardValue === cardArr[1].dataset.cardValue;
 
 
@@ -86,7 +97,11 @@ function handleCardClick(evt) {
         checkGame();
 
       }
-      cardArr = [];
+      cardArr = []
+
+       isBlocked = false;
+
+
     }, 1000);
   }
 
@@ -94,8 +109,10 @@ function handleCardClick(evt) {
 
 function checkGame() {
   matchCount++;
+  console.log(matchCount)
   if (matchCount === maxCount) {
     done = true;
+    isBlocked = true
     document.querySelector("h1").innerText = "game over";
   }
 }
