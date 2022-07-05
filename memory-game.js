@@ -4,8 +4,8 @@
 
 const FOUND_MATCH_WAIT_MSECS = 1000;
 const COLORS = [
-  "red", "blue", "green", "orange", "purple",
-  "red", "blue", "green", "orange", "purple",
+  "red", "blue", "green", "orange", "purple", "yellow",
+  "red", "blue", "green", "orange", "purple", "yellow"
 ];
 
 const colors = shuffle(COLORS);
@@ -50,13 +50,15 @@ function createCards(colors) {
 /** Flip a card face-up. */
 
 function flipCard(card) {
-  card.style.backgroundColor = card.dataset.cardValue;
+  // card.style.backgroundColor = card.dataset.cardValue;
+  let colorBackCard =  card.dataset.cardValue;
+  card.style.backgroundImage = `url('/photos/${colorBackCard}.gif')`
 }
 
 /** Flip a card face-down. */
 
 function unFlipCard(card) {
-  card.style.backgroundColor = "white";
+  card.style.backgroundImage = "url('/photos/front.jpg')";
 }
 
 /** Handle clicking on a card: this could be first-card or second-card. */
@@ -122,7 +124,6 @@ function createCard(color, id) {
   newCard.id = id;
   newCard.className = "card";
   newCard.setAttribute("data-card-value", color);
-
   newCard.addEventListener("click", handleCardClick);
   return newCard;
 }
@@ -130,3 +131,5 @@ function createCard(color, id) {
 function markMatch(card) {
   card.setAttribute("data-card-matched", true);
 }
+
+
