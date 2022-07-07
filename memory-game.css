@@ -40,8 +40,7 @@ button {
 }
 
 .card {
-  background-image: url("/photos/front.jpg");
+  background-image: url("photos/front.jpg");
   background-size: cover;
   background-position: 0% 33%;
-
 }

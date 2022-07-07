@@ -55,13 +55,13 @@ function createCards(colors) {
 function flipCard(card) {
   // card.style.backgroundColor = card.dataset.cardValue;
   let colorBackCard = card.dataset.cardValue;
-  card.style.backgroundImage = `url('/photos/${colorBackCard}.jpeg')`;
+  card.style.backgroundImage = `url('photos/${colorBackCard}.jpeg')`;
 }
 
 /** Flip a card face-down. */
 
 function unFlipCard(card) {
-  card.style.backgroundImage = "url('/photos/front.jpg')";
+  card.style.backgroundImage = "url('photos/front.jpg')";
 }
 
 /** Handle clicking on a card: this could be first-card or second-card. */
@@ -116,11 +116,9 @@ function checkGame() {
     document.querySelector("h1").innerText = "game over";
 
     let lowestScore = localStorage.getItem('playerOneScore');
-
-    if (nums < lowestScore) {
+    if (nums < lowestScore || lowestScore === null) {
       localStorage.setItem('playerOneScore', nums);
       loadTopScore();
-
     }
   }
 
