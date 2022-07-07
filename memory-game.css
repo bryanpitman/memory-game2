@@ -22,7 +22,6 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   background: black;
   cursor: pointer;
 }
@@ -43,4 +42,11 @@ button {
   background-image: url("photos/front.jpg");
   background-size: cover;
   background-position: 0% 33%;
+}
+
+.wrapper{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 1377px;
 }
