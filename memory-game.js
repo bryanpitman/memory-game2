@@ -4,7 +4,7 @@
 
 const FOUND_MATCH_WAIT_MSECS = 1000;
 const COLORS = [
-  "red", "blue", "green", "orange", "purple", "yellow", "brown", 
+  "red", "blue", "green", "orange", "purple", "yellow", "brown",
   "red", "blue", "green", "orange", "purple", "yellow", "brown",
 ];
 
@@ -55,7 +55,7 @@ function createCards(colors) {
 function flipCard(card) {
   // card.style.backgroundColor = card.dataset.cardValue;
   let colorBackCard = card.dataset.cardValue;
-  card.style.backgroundImage = `url('/photos/${colorBackCard}.gif')`;
+  card.style.backgroundImage = `url('/photos/${colorBackCard}.jpeg')`;
 }
 
 /** Flip a card face-down. */
