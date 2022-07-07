@@ -4,11 +4,11 @@
 
 const FOUND_MATCH_WAIT_MSECS = 1000;
 const COLORS = [
-  "red", "blue", "green", "orange", "purple", "yellow",
-  "red", "blue", "green", "orange", "purple", "yellow"
+  "red", "blue", "green", "orange", "purple", "yellow", "brown", 
+  "red", "blue", "green", "orange", "purple", "yellow", "brown",
 ];
 
-const colors = COLORS;//shuffle(COLORS);
+const colors = shuffle(COLORS);
 
 createCards(colors);
 loadTopScore();
@@ -120,7 +120,7 @@ function checkGame() {
     if (nums < lowestScore) {
       localStorage.setItem('playerOneScore', nums);
       loadTopScore();
-      
+
     }
   }
 
