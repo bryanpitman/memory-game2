@@ -55,7 +55,7 @@ function createCards(colors) {
 function flipCard(card) {
   // card.style.backgroundColor = card.dataset.cardValue;
   let colorBackCard = card.dataset.cardValue;
-  card.style.backgroundImage = `url('photos/${colorBackCard}.jpeg')`;
+  card.style.backgroundImage = `url('photos/${colorBackCard}.gif')`;
 }
 
 /** Flip a card face-down. */
