@@ -8,10 +8,13 @@ const COLORS = [
   "red", "blue", "green", "orange", "purple", "yellow"
 ];
 
-const colors = shuffle(COLORS);
+const colors = COLORS;//shuffle(COLORS);
 
 createCards(colors);
-
+loadTopScore();
+function loadTopScore() {
+  document.querySelector('#top').innerText = localStorage.getItem('playerOneScore');
+}
 
 /** Shuffle array items in-place and return shuffled array. */
 
@@ -51,8 +54,8 @@ function createCards(colors) {
 
 function flipCard(card) {
   // card.style.backgroundColor = card.dataset.cardValue;
-  let colorBackCard =  card.dataset.cardValue;
-  card.style.backgroundImage = `url('/photos/${colorBackCard}.gif')`
+  let colorBackCard = card.dataset.cardValue;
+  card.style.backgroundImage = `url('/photos/${colorBackCard}.gif')`;
 }
 
 /** Flip a card face-down. */
@@ -67,56 +70,60 @@ let matchCount = 0;
 let done = false;
 let isBlocked = false;
 let maxCount = colors.length / 2;
+let nums = 0;
+
 function handleCardClick(evt) {
-  if(evt.srcElement.dataset.cardMatched || isBlocked || done){
+  if (evt.srcElement.dataset.cardMatched || isBlocked || done) {
     //do nothing when already matched
-    return
+    return;
   }
   flipCard(evt.srcElement);
-   let exists = cardArr.some(function(card){
-    return card.id === evt.srcElement.id
-  })
 
-  if(!exists){
+  let exists = cardArr.some(function (card) {
+    return card.id === evt.srcElement.id;
+  });
+  if (!exists) {
     cardArr.push(evt.srcElement);
+    nums++;
+    document.querySelector('#one').innerText = nums;
   }
 
-
-
-
   if (cardArr.length === 2) {
-    isBlocked = true
+    isBlocked = true;
     let isMatch = cardArr[0].dataset.cardValue === cardArr[1].dataset.cardValue;
-
 
     setTimeout(function () {
       if (!isMatch) {
         unFlipCard(cardArr[0]);
         unFlipCard(cardArr[1]);
       } else {
-        markMatch(cardArr[0])
-        markMatch(cardArr[1])
+        markMatch(cardArr[0]);
+        markMatch(cardArr[1]);
         checkGame();
-
       }
-      cardArr = []
-
-       isBlocked = false;
-
-
+      cardArr = [];
+      isBlocked = false;
     }, 1000);
   }
-
 }
 
 function checkGame() {
   matchCount++;
-  console.log(matchCount)
+
   if (matchCount === maxCount) {
     done = true;
-    isBlocked = true
+    isBlocked = true;
     document.querySelector("h1").innerText = "game over";
+
+    let lowestScore = localStorage.getItem('playerOneScore');
+
+    if (nums < lowestScore) {
+      localStorage.setItem('playerOneScore', nums);
+      loadTopScore();
+      
+    }
   }
+
 }
 
 function createCard(color, id) {
@@ -133,3 +140,8 @@ function markMatch(card) {
 }
 
 
+//reset button
+document.querySelector('#reset').addEventListener('click', resetGame);
+function resetGame() {
+  location.reload();
+}

@@ -1,6 +1,6 @@
 /* you can add to or change this. */
 
-h1 {
+h1, h2, span, h3 {
   color: white;
   font-family: 'Roboto', sans-serif;
   text-align: center;
@@ -43,5 +43,5 @@ button {
   background-image: url("/photos/front.jpg");
   background-size: cover;
   background-position: 0% 33%;
-  
+
 }
